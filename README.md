@@ -1,4 +1,5 @@
 Note: Currently assumes xhprof to be present in /var/www/xhprof. Will be fixed later.
+Note: Need to enable devel and setup xhprof before it works.
 
 1. Copy index-perf.php from docroot to /var/www
 2. Change .htaccess to refer to index-perf.php instead of index.php
