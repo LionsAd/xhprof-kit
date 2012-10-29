@@ -20,7 +20,7 @@ do
 	shift
 	shift
 
-	php xhprof-check.php "$base_run" "$new_run" "$base_branch..$branch"
+	php $(dirname $0)/xhprof-check.php "$base_run" "$new_run" "$base_branch..$branch"
 done
 
 #echo "---"
