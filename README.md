@@ -1,4 +1,6 @@
-1. Copy index-perf.php to /var/www
+Note: Currently assumes xhprof to be present in /var/www/xhprof. Will be fixed later.
+
+1. Copy index-perf.php from docroot to /var/www
 2. Change .htaccess to refer to index-perf.php instead of index.php
 3. Install drush registry rebuild project in drush folder.
 4. Setup the necessary branches (core, core--issueno--cid for example)
