@@ -7,7 +7,7 @@ shift
 
 for branch in $* 
 do
-        $HOME/benchmark-vs-baseline.sh "$branch" $b_base $b_branch
+        $(dirname $0)/benchmark-vs-baseline.sh "$branch" $b_base $b_branch
 done
 echo "---"
 echo "ct = function calls, wt = wall time, cpu = cpu time used, mu = memory usage, pmu = peak memory usage"

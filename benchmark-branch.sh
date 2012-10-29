@@ -19,4 +19,4 @@ drush cc all 2>/dev/null
 sudo rm -rf sites/default/files/php
 drush rr 2>/dev/null
 sudo rm -rf sites/default/files/php
-$HOME/find-min-web.sh "$branch" 100 | tail -n 1
+$(dirname $0)/find-min-web.sh "$branch" 100 | tail -n 1
