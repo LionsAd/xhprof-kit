@@ -12,7 +12,8 @@ then
 	settings_php=settings."$branch".php
 fi
 
-sudo ln -sf "$settings_php" sites/default/settings.php
+#@todo: Enable once we have proper scenarios support
+#sudo ln -sf "$settings_php" sites/default/settings.php
 
 sudo rm -rf sites/default/files/php
 drush cc all 2>/dev/null
