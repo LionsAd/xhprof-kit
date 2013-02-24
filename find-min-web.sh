@@ -15,7 +15,7 @@ do
 	#curl -H "Accept: text/html,application/xml,application/xhtml+xml;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5" -s 'http://127.0.0.1/node/1?extra='"$NS" | grep 'loop time: |0.'
 done | while read line
 do
-	mytime=$(echo $line | cut -d'|' -f2 | cut -d's' -f1 | sed 's/^/1000*1000*/' | cut -d'.' -f1 | bc)
+	mytime=$(echo $line | cut -d'|' -f2 | cut -d's' -f1 | sed 's/^/1000*1000*/' | bc | cut -d'.' -f1)
 
 	if [ $mytime -lt $MIN ]
 	then
