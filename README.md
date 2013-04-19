@@ -1,9 +1,10 @@
-Note: Currently assumes xhprof to be present in /var/www/xhprof. Will be fixed later.
-Note: Need to enable devel and setup xhprof before it works.
+Note: Currently assumes xhprof to be present as symlink "xhprof" in xhprof-kit.
+Note: Need to setup xhprof php extension before it works.
 
-1. Copy index-perf.php from docroot to /var/www
-2. Change .htaccess to refer to index-perf.php instead of index.php
-3. Install drush registry rebuild project in drush folder.
+1. Symlink your xhprof-installation to the xhprof-kit dir.
+   * ~/xhprof-kit$ ln -s /var/www/xhprof xhprof # assumes xhprof is installed in /var/www/xhprof.
+2. Symlink index-perf.php from xhprof-kit dir to docroot of Drupal.
+3. Install drush registry rebuild project in drush folder. (optional)
 4. Setup the necessary branches (core, core--issueno--cid for example)
 5. Switch between them.
 

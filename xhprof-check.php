@@ -4,9 +4,9 @@ $run2   = $_SERVER['argv'][2];
 $extra  = isset($_SERVER['argv'][3])?$_SERVER['argv'][3]:'';
 $source = isset($_SERVER['argv'][4])?$_SERVER['argv'][4]:'drupal-perf';
 
-include_once '/var/www/xhprof/xhprof_lib/utils/xhprof_lib.php';
-include_once '/var/www/xhprof/xhprof_lib/utils/xhprof_runs.php';
-include_once '/var/www/xhprof/xhprof_lib/display/xhprof.php';
+include_once 'xhprof/xhprof_lib/utils/xhprof_lib.php';
+include_once 'xhprof/xhprof_lib/utils/xhprof_runs.php';
+include_once 'xhprof/xhprof_lib/display/xhprof.php';
 
 $xhprof_runs_impl = new XHProfRuns_Default();
 
