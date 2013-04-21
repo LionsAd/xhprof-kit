@@ -12,6 +12,7 @@ basedir=$(dirname $0)
 
 run_data=$($basedir/benchmark-branch.sh "$branch")
 new_run=$(echo $run_data | cut -d'|' -f3)
+xhprof_url=$(echo $run_data | cut -d'|' -f6)
 
 while [ $# -gt 0 ]
 do
@@ -21,6 +22,11 @@ do
 	shift
 
 	php $(dirname $0)/xhprof-check.php "$base_run" "$new_run" "$base_branch..$branch"
+        echo $xhprof_url | perl -pi -e "s/run=.*\"/run1=$base_run&run2=$new_run&extra=$base_branch..$branch\"/"
+        echo
+
+        # Save data for uploading and re-display
+        echo "DATA|$base_run|$new_run|$base_branch..$branch" 1>&3
 done
 
 #echo "---"
