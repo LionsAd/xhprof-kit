@@ -32,4 +32,4 @@ include_once dirname(__FILE__) . '/../xhprof/xhprof_lib/display/xhprof.php';
 $xhprof_runs_impl = new XHProfRuns_Default('../data/stored-runs/');
 $xhprof_runs_impl->save_run($data, $source, $run_id);
 
-echo "Run uploaded successfully for $source.\n";
+echo "Run $run_id uploaded successfully for $source.\n";
