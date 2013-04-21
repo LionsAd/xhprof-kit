@@ -1,0 +1,5 @@
+# Ignore generated data files
+data
+
+# Ignore vim swap files
+.*.sw*
