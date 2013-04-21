@@ -102,3 +102,58 @@ ct = function calls, wt = wall time, cpu = cpu time used, mu = memory usage, pmu
 * Update 100 to 1000 in benchmark-branch.sh to have more accurate runs.
   * 1000 takes a while, but is very accurate. It depends on the speed of your machine and how dedicated it can be, if 100 runs are enough to find the minimum.
 * 'baseline-8.x' is just a name, its a good idea to point out what the benchmark is here, like 'core-stark-10-nodes'.
+
+Benchmarks are saved in xhprof-kit/data/<your baseline identifier>-<baseline name>.data files.
+
+* To later show a benchmark again use:
+  * ./xhprof-kit/show-bench.sh <your baseline identifier> baseline-8.x
+
+## Uploading
+
+As XHProf runs are really useful when published and others can take a look, the easiest is to upload them to a hosted installation of XHProf.
+
+````
+./xhprof-kit/upload-bench.sh <your API key> <your xhprof source> <your baseline identifier> baseline-8.x
+````
+
+You can get an API key and source id by contacting me va my drupal.org contact form (http://drupal.org/user/693738) or Fabianx on FreeNode.
+
+Due to security reasons I only give out API keys to people I know.
+
+## Hosting yourself
+
+However you can also host runs yourself by changing just some little files:
+
+* Download xhprof to / of your server.
+* Install the xhprof submodule like usual.
+* Change all lionsad.de domains to your server
+* Add a hosted/api.php file like:
+
+````
+<?php
+
+$api_keys = array(
+  '8da2a3349ea4711eb59f57faff1eb05a' => 'cottser',
+);
+````
+
+The source prefix is then 'drupal-perf-cottser'.
+
+* Apply the following diff to xhprof:
+
+````
+diff --git a/xhprof_lib/utils/xhprof_runs.php b/xhprof_lib/utils/xhprof_runs.php
+index cde5ff5..561d410 100644
+--- a/xhprof_lib/utils/xhprof_runs.php
++++ b/xhprof_lib/utils/xhprof_runs.php
+@@ -90,6 +90,9 @@ class XHProfRuns_Default implements iXHProfRuns {
+     // we use the xhprof.output_dir ini setting
+     // if specified, else we default to the directory
+     // in which the error_log file resides.
++    if (empty($dir)) {
++      $dir = '../../data/stored-runs/';
++    }
+ 
+     if (empty($dir)) {
+       $dir = ini_get("xhprof.output_dir");
+````
