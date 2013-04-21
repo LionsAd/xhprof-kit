@@ -103,10 +103,10 @@ ct = function calls, wt = wall time, cpu = cpu time used, mu = memory usage, pmu
   * 1000 takes a while, but is very accurate. It depends on the speed of your machine and how dedicated it can be, if 100 runs are enough to find the minimum.
 * 'baseline-8.x' is just a name, its a good idea to point out what the benchmark is here, like 'core-stark-10-nodes'.
 
-Benchmarks are saved in xhprof-kit/data/<your baseline identifier>-<baseline name>.data files.
+Benchmarks are saved in xhprof-kit/data/[your baseline identifier]-[baseline name].data files.
 
 * To later show a benchmark again use:
-  * ./xhprof-kit/show-bench.sh <your baseline identifier> baseline-8.x
+  * ./xhprof-kit/show-bench.sh [your baseline identifier] baseline-8.x
 
 ## Uploading
 
