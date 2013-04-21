@@ -113,10 +113,10 @@ Benchmarks are saved in xhprof-kit/data/[your baseline identifier]-[baseline nam
 As XHProf runs are really useful when published and others can take a look, the easiest is to upload them to a hosted installation of XHProf.
 
 ````
-./xhprof-kit/upload-bench.sh <your API key> <your xhprof source> <your baseline identifier> baseline-8.x
+./xhprof-kit/upload-bench.sh <your API key> <your xhprof source ID> <your baseline identifier> baseline-8.x
 ````
 
-You can get an API key and source id by contacting me va my drupal.org contact form (http://drupal.org/user/693738) or Fabianx on FreeNode.
+You can get an API key and source ID by contacting me via my drupal.org contact form (http://drupal.org/user/693738) or Fabianx on FreeNode.
 
 Due to security reasons I only give out API keys to people I know.
 
@@ -133,11 +133,11 @@ However you can also host runs yourself by changing just some little files:
 <?php
 
 $api_keys = array(
-  '8da2a3349ea4711eb59f57faff1eb05a' => 'cottser',
+  '8da2a3349ea4711eb59f57faff1eb05a' => 'drupal-perf-cottser',
 );
 ````
 
-The source prefix is then 'drupal-perf-cottser'.
+The format is: API KEY => source identifier, which is used as xhprof source argument.
 
 * Apply the following diff to xhprof:
 

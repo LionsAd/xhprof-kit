@@ -20,7 +20,6 @@ if ($source === FALSE) {
 }
 
 $run_id = $_GET['run'];
-$source = $_GET['source'] . '-' . $source;
 
 $data = unserialize(file_get_contents('php://stdin'));
 
