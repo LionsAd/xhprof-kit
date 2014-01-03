@@ -15,9 +15,6 @@ fi
 #@todo: Enable once we have proper scenarios support
 #sudo ln -sf "$settings_php" sites/default/settings.php
 
-sudo rm -rf sites/default/files/php
 drush cr 2>/dev/null
-sudo rm -rf sites/default/files/php
 drush rr 2>/dev/null
-sudo rm -rf sites/default/files/php
 $(dirname $0)/find-min-web.sh "$branch" 100 | tail -n 1
