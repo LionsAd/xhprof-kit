@@ -16,5 +16,4 @@ fi
 #sudo ln -sf "$settings_php" sites/default/settings.php
 
 drush cr 2>/dev/null
-drush rr 2>/dev/null
 $(dirname $0)/find-min-web.sh "$branch" 100 | tail -n 1
