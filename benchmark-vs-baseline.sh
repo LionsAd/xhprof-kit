@@ -22,6 +22,7 @@ do
 	shift
 
 	php $(dirname $0)/xhprof-check.php "$base_run" "$new_run" "$base_branch..$branch"
+        echo
         echo $xhprof_url | perl -pi -e "s/run=.*\"/run1=$base_run&run2=$new_run&extra=$base_branch..$branch\"/"
         echo
 
