@@ -45,5 +45,3 @@ foreach ($metrics as $metric) {
       $fmt = $format_cbk[$m];
       print str_pad($m,4) . ': ' . print_num($totals_1[$m], $fmt) . '|' . print_num($totals_2[$m], $fmt) . '|' . print_num($totals_2[$m] - $totals_1[$m], $fmt) . '|' . print_pct(($totals_2[$m] - $totals_1[$m]), $totals_1[$m]) . "\n";
 }
-
-print "\n";

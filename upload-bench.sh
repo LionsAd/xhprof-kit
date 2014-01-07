@@ -13,7 +13,10 @@ do
   php $(dirname $0)/upload-run.php $KEY $new_run
 
   # Display XHProf Report again, but override URL
+  echo "<code>"
   php $(dirname $0)/xhprof-check.php "$base_run" "$new_run" "$extra"
+  echo "</code>"
+  echo
   echo "$xhprof_url?run1=$base_run&run2=$new_run&source=$SRC&extra=$extra"
   echo
 done
