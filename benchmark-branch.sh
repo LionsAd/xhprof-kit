@@ -3,7 +3,7 @@
 branch=master
 [ -n "$1" ] && branch=$1
 
-drush cc all 2>/dev/null
+drush cr 2>/dev/null
 git checkout -q "$branch" --
 
 settings_php=settings.default.php
@@ -15,9 +15,5 @@ fi
 #@todo: Enable once we have proper scenarios support
 #sudo ln -sf "$settings_php" sites/default/settings.php
 
-sudo rm -rf sites/default/files/php
-drush cc all 2>/dev/null
-sudo rm -rf sites/default/files/php
-drush rr 2>/dev/null
-sudo rm -rf sites/default/files/php
+drush cr 2>/dev/null
 $(dirname $0)/find-min-web.sh "$branch" 100 | tail -n 1
