@@ -7,14 +7,15 @@ Note: Using this on a production system is unsupported and potentially dangerous
 0. Install XHProf PHP Extension
    * This guide assumes you have the PHP XHProf extension installed already.
 1. Download xhprof as submodule while in xhprof-kit dir:
-   * $ git submodule init
-   * $ git submodule update
+   * $ `git submodule init`
+   * $ `git submodule update`
 2. Install XHProf-Kit in the Drupal directory you want to benchmark
-   * $ /where/is/xhprof-kit/setup-directory.sh
+   * $ `/where/is/xhprof-kit/setup-directory.sh`
    * This creates a xhprof-kit symlink in the directory.
    * Make sure symlinks are allowed in Apache configuration.
-3. Install drush registry rebuild project in drush folder. (optional)
-   * $ drush dl registry_rebuild
+3. Install drush registry rebuild project in drush folder. (optional, only needed for Drupal 7)
+   * $ `cd ~/.drush`
+   * $ `drush dl registry_rebuild`
 
 ## Assumptions
 
