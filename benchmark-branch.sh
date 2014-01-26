@@ -33,6 +33,8 @@ fi
 
 if [ $DRUPAL_VERSION == 8 ]; then
   drush cr 2>/dev/null
+  # This table gets bigger on every run and slows the PDOStatement.
+  drush sqlq "TRUNCATE key_value_expire;"
 elif [ $DRUPAL_VERSION == 7 ]; then
   drush cc all 2>/dev/null
   drush rr 2>/dev/null
