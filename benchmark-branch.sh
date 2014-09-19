@@ -15,9 +15,9 @@ if [ $DRUPAL_VERSION -lt 7 -o $DRUPAL_VERSION -gt 8 ]; then
   return 1
 fi
 
-if [ $DRUPAL_VERSION == 8 ]; then
+if [ $DRUPAL_VERSION -eq 8 ]; then
   drush cr 2>/dev/null
-elif [ $DRUPAL_VERSION == 7 ]; then
+elif [ $DRUPAL_VERSION -eq 7 ]; then
   drush cc all 2>/dev/null
 fi
 git checkout -q "$branch" --
@@ -31,11 +31,11 @@ fi
 #@todo: Enable once we have proper scenarios support
 #sudo ln -sf "$settings_php" sites/default/settings.php
 
-if [ $DRUPAL_VERSION == 8 ]; then
+if [ $DRUPAL_VERSION -eq 8 ]; then
   drush cr 2>/dev/null
   # This table gets bigger on every run and slows the PDOStatement.
   drush sqlq "TRUNCATE key_value_expire;"
-elif [ $DRUPAL_VERSION == 7 ]; then
+elif [ $DRUPAL_VERSION -eq 7 ]; then
   drush cc all 2>/dev/null
   drush rr 2>/dev/null
 fi
