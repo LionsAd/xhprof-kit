@@ -1,14 +1,16 @@
 <?php
 
-// set profiler namespace 
-$profiler_namespace = (!isset($_GET['namespace']))?'drupal-perf':$_GET['namespace'];
-$profiler_extra = (!isset($_GET['extra']))?'':$_GET['extra'];
-$profiler_dir = 'xhprof-kit/xhprof';
+include 'xhprof-kit/XhprofIntegration.php';
+include 'xhprof-kit/UprofilerIntegration.php';
 
-if (extension_loaded('xhprof')) {
-    include_once $profiler_dir . '/xhprof_lib/utils/xhprof_lib.php';
-    include_once $profiler_dir . '/xhprof_lib/utils/xhprof_runs.php';
-    xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
+use xhprof_kit\UprofilerIntegration;
+use xhprof_kit\XhprofIntegration;
+
+if (XhprofIntegration::exists()) {
+  XhprofIntegration::before();
+}
+elseif (UprofilerIntegration::exists()) {
+  UprofilerIntegration::before();
 }
 
 // Parse URL
@@ -44,14 +46,12 @@ printf( "loop time: |%fs|",
     $time_end
 );
 
-if (extension_loaded('xhprof')) {
-    $xhprof_data = xhprof_disable();
-    $xhprof_runs = new XHProfRuns_Default();
-    $run_id = $xhprof_runs->save_run($xhprof_data, $profiler_namespace);
-
-    // url to the XHProf UI libraries (change the host name and path)
-    $profiler_url = sprintf($base_url . '/xhprof-kit/xhprof/xhprof_html/index.php?source=%s&url=%s&run=%s&extra=%s', $profiler_namespace, urlencode($benchmark_url), $run_id, $profiler_extra);
-    echo $run_id . '|' . $profiler_namespace . '|' . $profiler_extra . '|' . '<a href="'. $profiler_url .'" target="_blank">Profiler output</a>' . "\n";
+if (XhprofIntegration::exists()) {
+  XhprofIntegration::after($benchmark_url);
 }
+elseif (UprofilerIntegration::exists()) {
+  UprofilerIntegration::after($benchmark_url);
+}
+
 
 exit();

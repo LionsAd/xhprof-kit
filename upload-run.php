@@ -1,18 +1,22 @@
 <?php
 
+include 'XhprofIntegration.php';
+include 'UprofilerIntegration.php';
+
+use xhprof_kit\UprofilerIntegration;
+use xhprof_kit\XhprofIntegration;
+
 // Setup parameters
 $key = $_SERVER['argv'][1];
 $run   = $_SERVER['argv'][2];
 $source = isset($_SERVER['argv'][3])?$_SERVER['argv'][3]:'drupal-perf';
 
-// Retrieve run data
-include_once dirname(__FILE__) . '/xhprof/xhprof_lib/utils/xhprof_lib.php';
-include_once dirname(__FILE__) . '/xhprof/xhprof_lib/utils/xhprof_runs.php';
-include_once dirname(__FILE__) . '/xhprof/xhprof_lib/display/xhprof.php';
-
-$xhprof_runs_impl = new XHProfRuns_Default();
-
-$run_data = $xhprof_runs_impl->get_run($run, $source, $description); 
+if (XhprofIntegration::exists()) {
+  $run_data = XhprofIntegration::getRunData($run, $source, $description = '');
+}
+elseif (UprofilerIntegration::exists()) {
+  $run_data = UprofilerIntegration::getRunData($run, $source, $description = '');
+}
 
 // Save run data ...
 $data = serialize($run_data);
