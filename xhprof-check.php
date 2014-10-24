@@ -1,30 +1,29 @@
 <?php
+include 'xhprof-kit/XhprofIntegration.php';
+include 'xhprof-kit/UprofilerIntegration.php';
+
+use xhprof_kit\UprofilerIntegration;
+use xhprof_kit\XhprofIntegration;
+
 $run1   = $_SERVER['argv'][1];
 $run2   = $_SERVER['argv'][2];
 $extra  = isset($_SERVER['argv'][3])?$_SERVER['argv'][3]:'';
 $source = isset($_SERVER['argv'][4])?$_SERVER['argv'][4]:'drupal-perf';
 
-include_once dirname(__FILE__) . '/xhprof/xhprof_lib/utils/xhprof_lib.php';
-include_once dirname(__FILE__) . '/xhprof/xhprof_lib/utils/xhprof_runs.php';
-include_once dirname(__FILE__) . '/xhprof/xhprof_lib/display/xhprof.php';
+if (XhprofIntegration::exists()) {
+  $result = XhprofIntegration::compareRunsMetrics($run1, $run2, $source, $description_1, $description_2);
+}
+elseif (uprofilerIntegration::exists()) {
+  $result = uprofilerIntegration::compareRunsMetrics($run1, $run2, $source, $description_1, $description_2);
+}
 
-$xhprof_runs_impl = new XHProfRuns_Default();
-
-$run1_data = $xhprof_runs_impl->get_run($run1, $source, $description1);
-$run2_data = $xhprof_runs_impl->get_run($run2, $source, $description2);
-
-$run_delta = xhprof_compute_diff($run1_data, $run2_data);
-$symbol_tab  = xhprof_compute_flat_info($run_delta, $totals);
-$symbol_tab1 = xhprof_compute_flat_info($run1_data, $totals_1);
-$symbol_tab2 = xhprof_compute_flat_info($run2_data, $totals_2);
-
-$metrics = xhprof_get_metrics($run_delta);
+list($totals_1, $totals_2, $metrics) = $result;
 
 function print_pct($numer, $denom) {
   if ($denom == 0) {
     $pct = "N/A%";
   } else {
-    $pct = xhprof_percent_format($numer / abs($denom));
+    $pct = sprintf('%.1f%%', 100 * $numer / abs($denom));
   }
 
   return $pct;
@@ -39,6 +38,8 @@ function print_num($num, $fmt_func = null) {
 
 print "=== $extra compared ($run1..$run2):\n\n";
 array_unshift($metrics, 'ct');
+
+global $format_cbk;
 
 foreach ($metrics as $metric) {
       $m = $metric;
