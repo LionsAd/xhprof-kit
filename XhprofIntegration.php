@@ -61,6 +61,7 @@ class XhprofIntegration {
     $run1_data = $xhprof_runs_impl->get_run($run1, $source, $description_1);
     $run2_data = $xhprof_runs_impl->get_run($run2, $source, $description_2);
 
+    $GLOBALS['display_calls'] = TRUE;
     $run_delta = xhprof_compute_diff($run1_data, $run2_data);
     $symbol_tab  = xhprof_compute_flat_info($run_delta, $totals);
     $symbol_tab1 = xhprof_compute_flat_info($run1_data, $totals_1);
