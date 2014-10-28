@@ -1,7 +1,9 @@
 #!/bin/sh
 
-branch=master
-[ -n "$1" ] && branch=$1
+BRANCH=master
+URL="/"
+[ -n "$1" ] && BRANCH=$1
+[ -n "$2" ] && URL=$1
 
 DRUPAL_VERSION="$(drush php-eval 'echo drush_drupal_major_version();')"
 if [ ! $DRUPAL_VERSION ]; then
@@ -20,12 +22,12 @@ if [ $DRUPAL_VERSION -eq 8 ]; then
 elif [ $DRUPAL_VERSION -eq 7 ]; then
   drush cc all 2>/dev/null
 fi
-git checkout -q "$branch" --
+git checkout -q "$BRANCH" --
 
 settings_php=settings.default.php
-if [ -f sites/default/settings."$branch".php ]
+if [ -f sites/default/settings."$BRANCH".php ]
 then
-	settings_php=settings."$branch".php
+	settings_php=settings."$BRANCH".php
 fi
 
 #@todo: Enable once we have proper scenarios support
@@ -39,4 +41,4 @@ elif [ $DRUPAL_VERSION -eq 7 ]; then
   drush cc all 2>/dev/null
   drush rr 2>/dev/null
 fi
-$(dirname $0)/find-min-web.sh "$branch" 100 | tail -n 1
+$(dirname $0)/find-min-web.sh "$BRANCH" 100 "$URL" | tail -n 1
