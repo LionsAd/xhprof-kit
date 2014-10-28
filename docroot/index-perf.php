@@ -37,14 +37,13 @@ if (isset($path['path'])) {
 // Benchmark loop
 $time_start = microtime( true );
 
-include $cmd;
+register_shutdown_function(function() use ($time_start, $profiler_namespace, $benchmark_url) {
+  $time_end = ( microtime( true ) - $time_start );
+  printf( "loop time: |%fs|",
+      $time_end
+  );
 
-$time_end = ( microtime( true ) - $time_start );
-printf( "loop time: |%fs|",
-    $time_end
-);
-
-if (extension_loaded('xhprof')) {
+  if (extension_loaded('xhprof')) {
     $xhprof_data = xhprof_disable();
     $xhprof_runs = new XHProfRuns_Default();
     $run_id = $xhprof_runs->save_run($xhprof_data, $profiler_namespace);
@@ -52,6 +51,11 @@ if (extension_loaded('xhprof')) {
     // url to the XHProf UI libraries (change the host name and path)
     $profiler_url = sprintf($base_url . '/xhprof-kit/xhprof/xhprof_html/index.php?source=%s&url=%s&run=%s&extra=%s', $profiler_namespace, urlencode($benchmark_url), $run_id, $profiler_extra);
     echo $run_id . '|' . $profiler_namespace . '|' . $profiler_extra . '|' . '<a href="'. $profiler_url .'" target="_blank">Profiler output</a>' . "\n";
-}
+  }
+
+});
+
+
+include $cmd;
 
 exit();
