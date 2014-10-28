@@ -37,7 +37,7 @@ if (isset($path['path'])) {
 // Benchmark loop
 $time_start = microtime( true );
 
-register_shutdown_function(function() use ($time_start, $profiler_namespace, $benchmark_url) {
+register_shutdown_function(function() use ($time_start, $profiler_namespace, $benchmark_url, $profiler_extra) {
   $time_end = ( microtime( true ) - $time_start );
   printf( "loop time: |%fs|",
       $time_end
