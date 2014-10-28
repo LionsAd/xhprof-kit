@@ -5,10 +5,18 @@ $profiler_namespace = (!isset($_GET['namespace']))?'drupal-perf':$_GET['namespac
 $profiler_extra = (!isset($_GET['extra']))?'':$_GET['extra'];
 $profiler_dir = 'xhprof-kit/xhprof';
 
-if (extension_loaded('xhprof')) {
+$profiler_enable_function = 'xhprof_enable';
+$profiler_disable_function = 'xhprof_disable';
+
+if (extension_loaded('uprofiler')) {
+  $profiler_enable_function = 'uprofiler_enable';
+  $profiler_disable_function = 'uprofiler_disable';
+}
+
+if (extension_loaded('xhprof') || extension_loaded('uprofiler')) {
     include_once $profiler_dir . '/xhprof_lib/utils/xhprof_lib.php';
     include_once $profiler_dir . '/xhprof_lib/utils/xhprof_runs.php';
-    xhprof_enable(XHPROF_FLAGS_MEMORY);
+    $profiler_enable_function(XHPROF_FLAGS_MEMORY);
 }
 
 // Parse URL
@@ -37,14 +45,14 @@ if (isset($path['path'])) {
 // Benchmark loop
 $time_start = microtime( true );
 
-register_shutdown_function(function() use ($time_start, $profiler_namespace, $benchmark_url, $profiler_extra) {
+register_shutdown_function(function() use ($time_start, $profiler_namespace, $benchmark_url, $profiler_extra, $profiler_disable_function) {
   $time_end = ( microtime( true ) - $time_start );
   printf( "loop time: |%fs|",
       $time_end
   );
 
   if (extension_loaded('xhprof')) {
-    $xhprof_data = xhprof_disable();
+    $xhprof_data = $profiler_disable_function();
     $xhprof_runs = new XHProfRuns_Default();
     $run_id = $xhprof_runs->save_run($xhprof_data, $profiler_namespace);
 
