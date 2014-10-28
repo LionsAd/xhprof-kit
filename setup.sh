@@ -9,6 +9,11 @@ cd $BASE_DIR
 # Ensure submodules are present
 git submodule init
 git submodule update
+
+# Ensure XHProfCLI is setup
+echo "Setting up XHProfCLI, this step is optional, but needs composer."
+cd XHProfCLI
+composer install
 )
 
 # And setup the directory.
