@@ -7,10 +7,17 @@ $profiler_dir = 'xhprof-kit/xhprof';
 
 $profiler_enable_function = 'xhprof_enable';
 $profiler_disable_function = 'xhprof_disable';
+$profiler_data_dir = ini_get('xhprof.output_dir');
 
 if (extension_loaded('uprofiler')) {
   $profiler_enable_function = 'uprofiler_enable';
   $profiler_disable_function = 'uprofiler_disable';
+  $profiler_data_dir = ini_get('uprofiler.output_dir');
+}
+
+// Use a fallback like in xhprof_lib.
+if (empty($profiler_data_dir) {
+  $profiler_data_dir = '/tmp';
 }
 
 if (extension_loaded('xhprof') || extension_loaded('uprofiler')) {
@@ -45,15 +52,15 @@ if (isset($path['path'])) {
 // Benchmark loop
 $time_start = microtime( true );
 
-register_shutdown_function(function() use ($time_start, $profiler_namespace, $benchmark_url, $profiler_extra, $profiler_disable_function) {
+register_shutdown_function(function() use ($time_start, $profiler_namespace, $benchmark_url, $profiler_extra, $profiler_disable_function, $profiler_data_dir) {
   $time_end = ( microtime( true ) - $time_start );
   printf( "loop time: |%fs|",
       $time_end
   );
 
-  if (extension_loaded('xhprof')) {
+  if (extension_loaded('xhprof') || extension_loaded('uprofiler')) {
     $xhprof_data = $profiler_disable_function();
-    $xhprof_runs = new XHProfRuns_Default();
+    $xhprof_runs = new XHProfRuns_Default($profiler_data_dir);
     $run_id = $xhprof_runs->save_run($xhprof_data, $profiler_namespace);
 
     // url to the XHProf UI libraries (change the host name and path)
