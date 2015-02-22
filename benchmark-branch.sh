@@ -2,6 +2,7 @@
 
 BRANCH=master
 URL="/"
+LOOPS=100
 [ -n "$1" ] && BRANCH=$1
 [ -n "$2" ] && URL=$1
 
@@ -41,4 +42,4 @@ elif [ $DRUPAL_VERSION -eq 7 ]; then
   drush cc all 2>/dev/null
   drush rr 2>/dev/null
 fi
-$(dirname $0)/find-min-web.sh "$BRANCH" 100 "$URL" | tail -n 1
+$(dirname $0)/find-min-web.sh "$BRANCH" "$LOOPS" "$URL" | tail -n 1
