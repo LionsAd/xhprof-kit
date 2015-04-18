@@ -18,7 +18,14 @@ Note: Using this on a production system is unsupported and potentially dangerous
 ## Assumptions
 
 Currently XHProf-Kit assumes that Drupal is installed at 127.0.0.1. If you use
-a virtual host, you will need to change the URL in find-min-web.sh.
+a virtual host, you can change the URL in find-min-web.sh or export a value for
+`$XHPROF_KIT_DOCROOT`, like so:
+
+```
+export XHPROF_KIT_DOCROOT="d8.dev"
+```
+
+To make this stick, add the line above to your shell profile.
 
 ## Benchmarking
 
