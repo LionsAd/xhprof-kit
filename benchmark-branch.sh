@@ -4,7 +4,7 @@ BRANCH=master
 URL="/"
 LOOPS=100
 [ -n "$1" ] && BRANCH=$1
-[ -n "$2" ] && URL=$1
+[ -n "$2" ] && URL=$2
 
 DRUPAL_VERSION="$(drush php-eval 'echo drush_drupal_major_version();')"
 if [ ! $DRUPAL_VERSION ]; then
