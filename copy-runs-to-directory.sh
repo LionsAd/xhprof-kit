@@ -8,6 +8,8 @@ fi
 
 export RUN_COLLECTOR="$1"
 export DESTINATION="$2"
+export FIND_NAMESPACE=""
+test -n "$3" && FIND_NAMESPACE="|$3"
 export FIND_NAMESPACE="|$3"
 
 XHPROF_DIR=$(php -r 'print ini_get("xhprof.output_dir");')
@@ -15,7 +17,8 @@ XHPROF_DIR=$(php -r 'print ini_get("xhprof.output_dir");')
 rm -f "$DESTINATION"/*
 
 export IFS="|"
-cat "$RUN_COLLECTOR" | grep "$FIND_NAMESPACE" | while read run_id namespace
+
+cat "$RUN_COLLECTOR" | sed 's/$/|/g' | grep "$FIND_NAMESPACE|" | while read run_id namespace
 do
 	cp -f "$XHPROF_DIR/$run_id"* $DESTINATION/"${run_id}.${namespace}.xhprof"
 done
