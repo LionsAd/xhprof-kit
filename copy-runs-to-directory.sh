@@ -10,7 +10,6 @@ export RUN_COLLECTOR="$1"
 export DESTINATION="$2"
 export FIND_NAMESPACE=""
 test -n "$3" && FIND_NAMESPACE="|$3"
-export FIND_NAMESPACE="|$3"
 
 XHPROF_DIR=$(php -r 'print ini_get("xhprof.output_dir");')
 
