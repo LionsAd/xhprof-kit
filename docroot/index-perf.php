@@ -61,7 +61,7 @@ if (!isset($base_url)) {
 
     // url to the XHProf UI libraries (change the host name and path)
     $profiler_url = sprintf($base_url . '/xhprof-kit/xhprof/xhprof_html/index.php?source=%s&url=%s&run=%s&extra=%s', $profiler_namespace, urlencode($benchmark_url), $run_id, $profiler_extra);
-    echo $run_id . '|' . $profiler_namespace . '|' . $profiler_extra . '|' . '<a href="'. $profiler_url .'" target="_blank">Profiler output</a>' . "\n";
+    echo $run_id . '|' . $profiler_namespace . '|' . $profiler_extra . '|' . '<a id="xhprof-profiler-output" href="'. $profiler_url .'" target="_blank">Profiler output</a>' . "\n";
   }
 
 });
