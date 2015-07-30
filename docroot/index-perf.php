@@ -7,10 +7,19 @@ $profiler_dir = 'xhprof-kit/xhprof';
 
 // Parse URL
 $benchmark_url = '/';
+
+$_SERVER['QUERY_STRING'] = '';
+
+if (isset($_GET['no_opcache'])) {
+  ini_set('opcache.enable', 0);
+  unset($_GET['no_opcache']);
+  unset($_REQUEST['no_opcache']);
+}
+
 if (isset($_GET['url'])) {
   $benchmark_url = $_GET['url'];
   unset($_GET['url']);
-  $_SERVER['QUERY_STRING'] = '';
+  unset($_REQUEST['url']);
 }
 
 // define default settings
