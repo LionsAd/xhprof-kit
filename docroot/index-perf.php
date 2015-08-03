@@ -65,11 +65,17 @@ register_shutdown_function(function() use ($time_start, $profiler_namespace, $be
     $xhprof_runs = new XHProfRuns_Default();
     $run_id = $xhprof_runs->save_run($xhprof_data, $profiler_namespace);
 
-if (!isset($base_url)) {
-  $base_url = '';
-}
+    if (!isset($base_url)) {
+      $base_url = '';
 
-    // url to the XHProf UI libraries (change the host name and path)
+      // D8 compatibility code.
+      if (class_exists('\Symfony\Component\HttpFoundation\Request', FALSE)) {
+        $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+        $base_url = $request->getSchemeAndHttpHost() . $request->getBaseUrl();
+      }
+    }
+
+    // Get path for profiler url.
     $profiler_url = sprintf($base_url . '/xhprof-kit.php/?source=%s&url=%s&run=%s&extra=%s', $profiler_namespace, urlencode($benchmark_url), $run_id, $profiler_extra);
     echo $run_id . '|' . $profiler_namespace . '|' . $profiler_extra . '|' . '<a id="xhprof-profiler-output" href="'. $profiler_url .'" target="_blank">Profiler output</a>' . "\n";
   }
