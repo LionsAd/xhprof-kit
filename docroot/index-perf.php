@@ -3,7 +3,7 @@
 // set profiler namespace 
 $profiler_namespace = (!isset($_GET['namespace']))?'drupal-perf':$_GET['namespace'];
 $profiler_extra = (!isset($_GET['extra']))?'':$_GET['extra'];
-$profiler_dir = 'xhprof-kit/xhprof';
+$profiler_dir = __DIR__ . '/../xhprof';
 
 // enable xhprof by default
 $enable_xhprof = extension_loaded('xhprof');
@@ -70,7 +70,7 @@ if (!isset($base_url)) {
 }
 
     // url to the XHProf UI libraries (change the host name and path)
-    $profiler_url = sprintf($base_url . '/xhprof-kit/xhprof/xhprof_html/index.php?source=%s&url=%s&run=%s&extra=%s', $profiler_namespace, urlencode($benchmark_url), $run_id, $profiler_extra);
+    $profiler_url = sprintf($base_url . '/xhprof-kit.php/?source=%s&url=%s&run=%s&extra=%s', $profiler_namespace, urlencode($benchmark_url), $run_id, $profiler_extra);
     echo $run_id . '|' . $profiler_namespace . '|' . $profiler_extra . '|' . '<a id="xhprof-profiler-output" href="'. $profiler_url .'" target="_blank">Profiler output</a>' . "\n";
   }
 
