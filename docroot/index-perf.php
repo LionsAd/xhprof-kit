@@ -35,9 +35,11 @@ if (isset($_GET['url'])) {
 // define default settings
 $cmd = 'index.php';
 
+$benchmark_url = ltrim($benchmark_url, '/');
 $path = parse_url($benchmark_url);
 
 if (isset($path['query'])) {
+  $path['path'] = $path['host'];
   $_SERVER['QUERY_STRING'] = $path['query'];
   parse_str($path['query'], $_GET);
   $_REQUEST = $_GET;
@@ -45,6 +47,7 @@ if (isset($path['query'])) {
 
 // set file to execute or Drupal path (clean URLs enabled)
 if (isset($path['path'])) {
+  $path['path'] = '/' . $path['path']; 
   $_SERVER['SCRIPT_FILENAME'] = str_replace(basename(__FILE__), $cmd, $_SERVER['SCRIPT_FILENAME']);
   $_SERVER['SCRIPT_NAME'] = str_replace(basename(__FILE__), $cmd, $_SERVER['SCRIPT_NAME']);
   $_SERVER['PHP_SELF'] = str_replace(basename(__FILE__), $cmd, $_SERVER['PHP_SELF']);
