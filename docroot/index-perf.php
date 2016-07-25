@@ -82,6 +82,9 @@ register_shutdown_function(function() use ($time_start, $profiler_namespace, $be
     $profiler_url = sprintf($base_url . '/xhprof-kit.php/?source=%s&url=%s&run=%s&extra=%s', $profiler_namespace, urlencode($benchmark_url), $run_id, $profiler_extra);
     echo $run_id . '|' . $profiler_namespace . '|' . $profiler_extra . '|' . '<a id="xhprof-profiler-output" href="'. $profiler_url .'" target="_blank">Profiler output</a>' . "\n";
   }
+  else {
+    echo "Extension not loaded, maybe restart apache after the installation.";
+  }
 
 });
 
