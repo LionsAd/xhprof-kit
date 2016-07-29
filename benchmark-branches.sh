@@ -2,8 +2,10 @@
 
 BASEDIR=$( cd $(dirname $0); pwd );
 
-b_base=$1
-b_branch=$2
+path_to_test=$1
+b_base=$2
+b_branch=$3
+shift
 shift
 shift
 
@@ -17,7 +19,7 @@ echo
 
 for branch in $*
 do
-        $(dirname $0)/benchmark-vs-baseline.sh "$branch" $b_base $b_branch
+        $(dirname $0)/benchmark-vs-baseline.sh $path_to_test "$branch" $b_base $b_branch
 	echo
 done
 

@@ -43,7 +43,9 @@ Now lets assume the patch you want to benchmark is in:
 
 * core--issueno
 
-and the vanilla core is in 8.0.x branch.
+and the vanilla core is in 8.0.x branch
+
+and the path you want to test is the frontpage.
 
 #### Find a base line
 
@@ -52,7 +54,7 @@ First you will need to find a base line, which is what you compare things to.
 Use:
 
 ````
-./xhprof-kit/benchmark-branch.sh 8.0.x
+./xhprof-kit/benchmark-branch.sh 8.0.x /
 ````
 
 The output will be something like:
@@ -81,7 +83,13 @@ To now benchmark your baseline against 8.0.x again (to verify it is accurate)
 and against your new branch with the patch to test, use the following command:
 
 ````
-./xhprof-kit/benchmark-branches.sh <your baseline identifier> baseline-8.0.x 8.0.x core--issueno
+./xhprof-kit/benchmark-branches.sh <path to benchmark> <your baseline identifier> baseline-8.0.x 8.0.x core--issueno
+````
+
+For example:
+
+````
+./xhprof-kit/benchmark-branches.sh / 5173f49dd982a baseline-8.0.x 8.0.x core--issueno
 ````
 
 The output of this will be something like:

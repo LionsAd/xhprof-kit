@@ -3,14 +3,16 @@
 base=''
 branch=master
 
-[ -n "$1" ] && branch=$1
+[ -n "$1" ] && path_to_test=$1
+[ -n "$2" ] && branch=$2
+shift
 shift
 
 basedir=$(dirname $0)
 
 #echo $basedir/benchmark-branch.sh "$branch"
 
-run_data=$($basedir/benchmark-branch.sh "$branch")
+run_data=$($basedir/benchmark-branch.sh "$branch" "$path_to_test")
 new_run=$(echo $run_data | cut -d'|' -f3)
 xhprof_url=$(echo $run_data | cut -d'|' -f6)
 
