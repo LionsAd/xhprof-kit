@@ -109,7 +109,7 @@ print <<<EOF
   jQuery(document).ready(function() {
     jQuery('a').once('xhprof-perf').each(function() {
       if (this.hostname == document.domain) {
-        this.href = '/index-perf.php?url=' + encodeURI(this.pathname);
+        this.href = '/index-perf.php?url=' + encodeURI(this.pathname) + this.search.replace('?', '&');
       }
     });
   });
