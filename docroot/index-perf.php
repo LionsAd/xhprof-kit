@@ -81,6 +81,16 @@ register_shutdown_function(function() use ($time_start, $profiler_namespace, $be
     // Get path for profiler url.
     $profiler_url = sprintf($base_url . '/xhprof-kit.php/?source=%s&url=%s&run=%s&extra=%s', $profiler_namespace, urlencode($benchmark_url), $run_id, $profiler_extra);
     echo $run_id . '|' . $profiler_namespace . '|' . $profiler_extra . '|' . '<a id="xhprof-profiler-output" href="'. $profiler_url .'" target="_blank">Profiler output</a>' . "\n";
+
+    $text = sprintf("%.0f", $time_end * 1000) . ' ms | <a id="xhprof-profiler-output" href="'. $profiler_url .'" target="_blank">Profiler output</a>';
+print <<<EOF
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('<div style="height: 40px; background: white; font-size: 20px; padding-left: 20px; padding-top: 10px;">$text</div>').prependTo('body');
+  });
+</script>
+EOF;
+
   }
 
 });
@@ -91,6 +101,19 @@ if ($enable_xhprof) {
   xhprof_enable(XHPROF_FLAGS_MEMORY);
 }
 
+//$_SERVER['REQUEST_METHOD'] = 'POST';
 include $cmd;
+
+print <<<EOF
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('a').once('xhprof-perf').each(function() {
+      if (this.hostname == document.domain) {
+        this.href = '/index-perf.php?url=' + encodeURI(this.pathname);
+      }
+    });
+  });
+</script>
+EOF;
 
 exit();
