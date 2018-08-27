@@ -1,7 +1,10 @@
 <?php
 
 $profiler_dir = __DIR__ . '/../xhprof';
-$html_dir = $profiler_dir . '/xhprof_html';
+$html_files_dir = $profiler_dir . '/xhprof_html';
+$html_dir = __DIR__ . '/../xhprof-calls';
+$GLOBALS['XHPROF_LIB_ROOT'] = $profiler_dir . '/xhprof_lib';
+
 $script_name = basename(__FILE__);
 
 $whitelist = array(
@@ -45,7 +48,7 @@ if (strpos($potential_file, '/callgraph.php') === 0) {
 
 // Whitelist for static files.
 if (isset($whitelist[$potential_file])) {
-  $name = $html_dir . $potential_file;
+  $name = $html_files_dir . $potential_file;
 
   header("Content-Type: " . $whitelist[$potential_file]);
   header("Content-Length: " . filesize($name));
