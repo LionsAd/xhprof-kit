@@ -134,7 +134,7 @@ register_shutdown_function(function() use ($time_start, $profiler_namespace, $be
     echo $run_id . '|' . $profiler_namespace . '|' . $profiler_extra . '|' . '<a id="xhprof-profiler-output" href="'. $profiler_url .'" target="_blank">Profiler output</a>' . "\n";
     error_log('xhprof-kit|' . sprintf("%.0f", $time_end * 1000) . ' ms |' . $run_id . '|' . $profiler_namespace . '|' . $profiler_extra . '|' . '<a id="xhprof-profiler-output" href="'. $profiler_url .'" target="_blank">Profiler output</a>' . "\n");
 
-    $text = sprintf("%.0f", $time_end * 1000) . ' ms | <a id="xhprof-profiler-output" href="'. $profiler_url .'" target="_blank">Profiler output</a>';
+    $text = sprintf("%.0f", $time_end * 1000) . ' ms | <a class="xhprof-perf-processed" id="xhprof-profiler-output" href="'. $profiler_url .'" target="_blank">Profiler output</a>';
   }
 
 print <<<EOF
