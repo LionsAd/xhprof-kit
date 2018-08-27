@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../auth.php';
+
 // set profiler namespace 
 $profiler_namespace = (!isset($_GET['namespace']))?'drupal-perf':$_GET['namespace'];
 $profiler_extra = (!isset($_GET['extra']))?'':$_GET['extra'];
